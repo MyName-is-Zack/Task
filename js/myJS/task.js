@@ -1,11 +1,20 @@
+/**
+* By. 满建华
+*/
 $(document).ready(function() { 
+	//编码
 	var codeID = "";
+	//名称
 	var username = "";
-	var dateRange = "";
+	//日期范围：起始日期
 	var start ="04/21/2016";
+	//日期范围：结束日期
 	var end ="04/21/2016";
+	//帐号类型
 	var accountSelect = "";
-	
+	/*
+	* daterangepicker 初始化
+	*/
   $('#dateRange').daterangepicker({
 	    "startDate": start,
 	    "endDate": end
@@ -15,13 +24,16 @@ $(document).ready(function() {
 		  start = start.format('MM/DD/YYYY');
 		  end = end.format('MM/DD/YYYY');
 	}); 
+	/*
+	* select2 初始化
+	*/
   $('#accountSelect').select2({
 	  placeholder: "所有用户",
   });
    $('#accountType').select2({
 	  placeholder: "系统用户",
   });
-  $('#example').DataTable({
+  $('#myTable').DataTable({
 	  //"lengthChange": false,
 	  "searching":false,
 	  "columnDefs": [{  
@@ -56,12 +68,16 @@ $(document).ready(function() {
 	  },
   "ajax": "json/tableData.json"
   });
-  
+  /*
+  * 搜索点击事件
+  */
   $("#seachBtn").click(function(){
 	  getVal();
 	  useAjax("json/tableData.json");
   });
-  
+  /*
+  * TAB切换响应
+  */
    $("#seachGroup").click(function(){
 	  $(".seachDiv").show();
 	  $(".addDiv").hide();
@@ -70,11 +86,17 @@ $(document).ready(function() {
 	  $(".seachDiv").hide();
 	  $(".addDiv").show();
   });
+  /*
+  * 获得搜索关键字
+  */
   function getVal(){
 	codeID = $("#codeID").val();
 	username = $("#username").val();
 	accountSelect = $("#accountSelect").val();
   }
+  /*
+  * ajax 请求
+  */
   function useAjax(url){
 	  console.log("codeID:"+codeID);
 	  console.log("username:"+username);
@@ -95,7 +117,7 @@ $(document).ready(function() {
 		    success:function(data) {  
     		      },  
 			error : function() {  
-			   alert("异常！");  
+			    
 			}  
 		}); 
   }
